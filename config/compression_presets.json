@@ -1,0 +1,30 @@
+{
+  "uncompressed": {
+    "name": "无压缩",
+    "description": "保持原始图像质量",
+    "transfer_syntax": "1.2.840.10008.1.2.1",
+    "compression_ratio": "1x",
+    "quality": 100
+  },
+  "RLELossless": {
+    "name": "标准压缩",
+    "description": "适用于诊断用途，兼容性好",
+    "transfer_syntax": "11.2.840.10008.1.2.5",
+    "compression_ratio": "2-3x",
+    "quality": 100
+  },
+  "JPEG2000Lossless": {
+    "name": "无损压缩",
+    "description": "适用于日常数据存储",
+    "transfer_syntax": "1.2.840.10008.1.2.4.90",
+    "compression_ratio": "4-8x",
+    "quality": 100
+  },
+  "JPEG2000Lossy": {
+    "name": "有损压缩",
+    "description": "高压缩比,适用于数据存档/数据预览",
+    "transfer_syntax": "1.2.840.10008.1.2.4.91",
+    "compression_ratio": "20-40x",
+    "quality": 75
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "level1_basic": {
+    "name": "基础脱敏",
+    "description": "符合基本隐私要求",
+    "fields": [
+      {"tag": "0x00100010", "name": "PatientName", "action": "replace", "value": "ANONYMOUS"},
+      {"tag": "0x00100020", "name": "PatientID", "action": "replace", "value": "ANONYMOUS_ID"},
+      {"tag": "0x00100030", "name": "PatientBirthDate", "action": "remove"}
+    ]
+  },
+  "level2_standard": {
+    "name": "标准脱敏",
+    "description": "符合HIPAA要求",
+    "fields": [
+      {"tag": "0x00100010", "name": "PatientName", "action": "replace", "value": "ANONYMOUS"},
+      {"tag": "0x00100020", "name": "PatientID", "action": "replace", "value": "ANONYMOUS_ID"},
+      {"tag": "0x00100030", "name": "PatientBirthDate", "action": "remove"},
+      {"tag": "0x00101040", "name": "PatientAddress", "action": "remove"},
+      {"tag": "0x00102154", "name": "PatientTelephoneNumbers", "action": "remove"},
+      {"tag": "0x00080080", "name": "InstitutionName", "action": "replace", "value": "ANONYMOUS_INSTITUTION"},
+      {"tag": "0x00081010", "name": "StationName", "action": "replace", "value": "ANONYMOUS_STATION"},
+      {"tag": "0x00080020", "name": "StudyDate", "action": "shift_date", "shift_days": -365},
+      {"tag": "0x00080021", "name": "SeriesDate", "action": "shift_date", "shift_days": -365},
+      {"tag": "0x00101010", "name": "PatientAge", "action": "remove"},
+      {"tag": "0x00101030", "name": "PatientWeight", "action": "remove"}
+    ]
+  },
+  "level3_strict": {
+    "name": "严格脱敏",
+    "description": "完全匿名化",
+    "fields": [
+      {"tag": "0x00100010", "name": "PatientName", "action": "replace", "value": "ANONYMOUS"},
+      {"tag": "0x00100020", "name": "PatientID", "action": "replace", "value": "ANONYMOUS_ID"},
+      {"tag": "0x00100030", "name": "PatientBirthDate", "action": "remove"},
+      {"tag": "0x00101040", "name": "PatientAddress", "action": "remove"},
+      {"tag": "0x00102154", "name": "PatientTelephoneNumbers", "action": "remove"},
+      {"tag": "0x00080080", "name": "InstitutionName", "action": "replace", "value": "ANONYMOUS_INSTITUTION"},
+      {"tag": "0x00081010", "name": "StationName", "action": "replace", "value": "ANONYMOUS_STATION"},
+      {"tag": "0x00100040", "name": "PatientSex", "action": "remove"},
+      {"tag": "0x00101010", "name": "PatientAge", "action": "remove"},
+      {"tag": "0x00101030", "name": "PatientWeight", "action": "remove"}
+    ],
+    "special_actions": [
+      "shift_all_dates",
+      "regenerate_all_uids",
+      "remove_physician_names",
+      "remove_device_serials"
+    ]
+  },
+  "level4_encrypted": {
+    "name": "加密脱敏",
+    "description": "可逆保护,支持RSA加密",
+    "base_level": "level2_standard",
+    "encryption": {
+      "algorithm": "RSA",
+      "key_size": 2048,
+      "encrypt_fields": [
+        "0x00100010", "0x00100020", "0x00100030", "0x00101040",
+        "0x00102154", "0x00080080", "0x00081010", "0x00080020",
+        "0x00080021", "0x00101010", "0x00101030"
+      ]
+    }
+  }
+}
